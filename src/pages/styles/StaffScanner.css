@@ -1,0 +1,268 @@
+.staffScan {
+  padding: 14px;
+  color: #fff;
+}
+
+/* head */
+.staffScan__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.staffScan__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.staffScan__sub {
+  margin-top: 6px;
+  font-size: 13px;
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+/* panel */
+.staffScan__panel {
+  margin-top: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.staffScan__grid {
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.staffScan__field {
+  display: grid;
+  gap: 8px;
+}
+
+.staffScan__label {
+  font-size: 12px;
+  font-weight: 900;
+  opacity: 0.85;
+}
+
+.staffScan__input,
+.staffScan__select {
+  width: 100%;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  padding: 0 12px;
+  outline: none;
+}
+
+
+.staffScan__select option {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.staffScan__input::placeholder {
+  color: rgba(255,255,255,0.55);
+}
+
+.staffScan__input:focus,
+.staffScan__select:focus {
+  border-color: rgba(255,77,240,0.6);
+}
+
+/* actions */
+.staffScan__actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.staffScan__btn {
+  height: 46px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.staffScan__btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.staffScan__btn--primary {
+  background: #ff4df0;
+  border-color: rgba(255,77,240,0.55);
+  color: #140032;
+}
+
+.staffScan__btn--primary:hover {
+  filter: brightness(0.95);
+}
+
+.staffScan__btn--ghost.isOn {
+  border-color: rgba(255,77,240,0.45);
+  background: rgba(255,77,240,0.12);
+  color: #ff4df0;
+}
+
+/* camera */
+.staffScan__camera {
+  border-top: 1px solid rgba(255,255,255,0.10);
+  padding: 14px;
+  background: rgba(0,0,0,0.16);
+}
+
+.staffScan__cameraFrame {
+  width: min(420px, 100%);
+  margin: 0 auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+
+.staffScan__qr {
+  width: 100%;
+}
+
+/* tip */
+.staffScan__tip {
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.75;
+  text-align: center;
+}
+
+/* status */
+.scanStatus {
+  margin-top: 14px;
+  border-radius: 16px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+}
+
+.scanStatus__title {
+  font-size: 16px;
+  font-weight: 950;
+  margin-bottom: 10px;
+}
+
+.scanStatus__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.scanStatus__row:first-of-type {
+  border-top: none;
+}
+
+.scanStatus__label {
+  font-size: 12px;
+  opacity: 0.75;
+  font-weight: 900;
+}
+
+.scanStatus__value {
+  font-size: 13px;
+  opacity: 0.95;
+  text-align: right;
+}
+
+.scanStatus--ok {
+  border-color: rgba(90, 255, 180, 0.28);
+  background: rgba(90, 255, 180, 0.10);
+}
+
+.scanStatus--bad {
+  border-color: rgba(255, 90, 90, 0.35);
+  background: rgba(255, 90, 90, 0.10);
+}
+
+/* modal */
+.staffScanModal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  z-index: 5000;
+}
+
+.staffScanModal__card {
+  width: min(520px, 100%);
+  border-radius: 18px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(20, 0, 50, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+}
+
+.staffScanModal__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.staffScanModal__title {
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.staffScanModal__x {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  cursor: pointer;
+}
+
+.staffScanModal__text {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.staffScanModal__actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* desktop tweaks */
+@media (min-width: 860px) {
+  .staffScan {
+    padding: 18px 20px 30px;
+  }
+
+  .staffScan__grid {
+    grid-template-columns: 1.4fr 0.6fr 1fr;
+    align-items: end;
+  }
+
+  .staffScan__actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}

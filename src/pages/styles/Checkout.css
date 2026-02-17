@@ -1,0 +1,157 @@
+.checkout{
+  min-height: 100vh;
+  /* background: #0b0320; */
+  padding: 24px 0 70px;
+  display: flex;
+  justify-content: center;
+}
+
+.checkout__container{
+  width: min(620px, 92vw);
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 26px 22px 22px 22px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+}
+
+/* Header */
+.checkout__head{
+  margin-bottom: 14px;
+}
+
+.checkout__title{
+  margin: 0;
+  color: #111;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.checkout__subtitle{
+  margin: 8px 0 0 0;
+  color: rgba(0,0,0,0.55);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Form */
+.checkout__form{
+  margin-top: 10px;
+  display: grid;
+  gap: 14px;
+}
+
+.checkout__field{
+  display: grid;
+  gap: 8px;
+}
+
+.checkout__label{
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(0,0,0,0.7);
+}
+
+/* Inputs estilo PDF */
+.checkout__input{
+  height: 40px;
+  border-radius: 8px;
+  border: 1.8px solid rgba(255,77,240,0.70);
+  padding: 0 12px;
+  outline: none;
+  color: #111;
+  font-weight: 700;
+  background: #fff;
+  transition: 0.15s ease;
+}
+
+.checkout__input:focus{
+  border-color: #ff4df0;
+  box-shadow: 0 0 0 3px rgba(255,77,240,0.18);
+}
+
+.checkout__input::placeholder{
+  color: rgba(0,0,0,0.35);
+  font-weight: 600;
+}
+
+.checkout__input--qty{
+  width: 140px;
+}
+
+/* Error */
+.checkout__input--error{
+  border-color: rgba(220, 53, 69, 0.9);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.12);
+}
+
+.checkout__error{
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(220, 53, 69, 0.95);
+}
+
+/* Botón centrado como el mock */
+.checkout__btn{
+  margin-top: 8px;
+  justify-self: center;
+  width: 220px;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  background: #190836;
+  color: #ffffff;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.checkout__btn:hover{
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.checkout__btn:disabled{
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Nota */
+.checkout__note{
+  margin-top: 6px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.55);
+}
+
+/* Mobile */
+@media (max-width: 520px){
+  .checkout{
+    padding: 18px 0 50px;
+  }
+
+  .checkout__container{
+    padding: 20px 16px 18px 16px;
+    border-radius: 12px;
+  }
+
+  .checkout__title{
+    font-size: 22px;
+  }
+
+  .checkout__input{
+    height: 42px;
+    border-radius: 10px;
+  }
+
+  .checkout__input--qty{
+    width: 100%;
+  }
+
+  .checkout__btn{
+    width: 100%;
+    height: 46px;
+  }
+}

@@ -1,0 +1,172 @@
+
+/* =========================
+   HERO
+========================= */
+
+.home__hero {
+  position: relative;
+  min-height: 420px; /* ✅ más banner como PDF (antes 520) */
+  overflow: hidden;
+}
+
+.home__heroBg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(14, 4, 42, 0.70), rgba(14, 4, 42, 0.65)),
+    url("/fondo.png");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+}
+
+.home__heroInner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 55px 22px 34px 22px; /* ✅ ajustado */
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.home__eventCard {
+  width: min(520px, 100%);
+  background: rgba(255, 255, 255, 0.80);
+  color: #1b1230;
+  border-radius: 14px;
+  padding: 18px 18px 16px 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.30);
+  backdrop-filter: blur(6px);
+}
+
+.home__eventArtists {
+  font-weight: 700;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.home__eventTitle {
+  margin-top: 10px;
+  font-size: 60px;
+  line-height: 1.02;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #241445;
+  text-transform: uppercase;
+}
+
+.home__eventMeta {
+  margin-top: 14px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.home__eventDate {
+  font-weight: 800;
+}
+
+.home__eventPlace {
+  margin-top: 3px;
+}
+
+.home__cta {
+  margin-top: 14px;
+  width: 220px;
+  height: 46px;
+  border: none;
+  border-radius: 10px;
+  background: #190836;
+  color: #fff;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.buyArrow {
+  color: #ff4df0;   /* morado NORTH */
+  font-size: 18px;
+  margin-left: 6px;
+  font-weight: 900;
+  transition: 0.15s ease;
+}
+
+.eventDetail__buyBtn:hover .buyArrow {
+  transform: translateX(3px);
+}
+
+
+.home__cta:hover {
+  filter: brightness(1.06);
+}
+
+.home__dots {
+  display: flex;
+  gap: 8px;
+  margin-left: 10px;
+}
+
+.home__dotItem {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.home__dotItem--active {
+  background: #ff4df0;
+}
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .home__nav {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .home__eventTitle {
+    font-size: 40px;
+  }
+
+  .home__footerInner {
+    grid-template-columns: 1fr;
+  }
+
+  .home__footerDeco {
+    font-size: 200px;
+  }
+}
+
+@media (max-width: 520px) {
+  .home__topbarLeft {
+    display: none;
+  }
+
+  .home__navInner {
+    height: auto;
+    padding: 14px 16px;
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
+
+  .home__nav {
+    justify-content: flex-start;
+  }
+
+  .home__eventTitle {
+    font-size: 34px;
+  }
+
+  .home__topbarRightBox {
+    width: 190px;
+  }
+}
