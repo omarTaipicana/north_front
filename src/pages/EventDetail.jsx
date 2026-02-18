@@ -27,12 +27,10 @@ const EventDetail = () => {
     getEvent();
   }, [eventId]);
    const id = event?.id || eventId;
-  const coverSrc = useMemo(() => {
-    // ✅ imagen en public con nombre = id del evento
-    // ejemplo: /e4590a68-31cd-45ee-bbea-2f4c71d03011.png
-    const id = event?.id || eventId;
-    return `/${id}.png`;
-  }, [event?.id, eventId]);
+  // const coverSrc = useMemo(() => {
+  //   const id = event?.id || eventId;
+  //   return `/${id}.png`;
+  // }, [event?.id, eventId]);
 
   if (isLoading) return <div className="eventDetail__state">Cargando evento...</div>;
   if (!event) return <div className="eventDetail__state">Evento no encontrado</div>;

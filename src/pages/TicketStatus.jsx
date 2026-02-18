@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useTicketStatus from "../hooks/useTicketStatus";
+import "./styles/TicketStatus.css";
 
 const TicketStatus = () => {
   const { code } = useParams();
@@ -9,7 +10,6 @@ const TicketStatus = () => {
   const [getStatus, ticket, isLoading] = useTicketStatus();
 
   useEffect(() => {
-    // Si staff está logueado => redirigir al scanner con code
     const token = localStorage.getItem("token");
     const staff = localStorage.getItem("staff");
 
@@ -18,78 +18,119 @@ const TicketStatus = () => {
       return;
     }
 
-    // Si no hay staff => consulta estado
     getStatus(code).catch(() => {});
   }, [code]);
 
-  if (isLoading) return <div style={{ padding: 20 }}>Cargando...</div>;
+  if (isLoading) return <div className="ticketStatus__state">Cargando...</div>;
 
   if (!ticket) {
     return (
-      <div style={{ padding: 20 }}>
-        <h2>Ticket</h2>
-        <p>No se pudo verificar el ticket.</p>
-        <p>Si crees que es un error, contacta a soporte.</p>
+      <div className="ticketStatus">
+        <div className="ticketStatus__container">
+          <h2 className="ticketStatus__title">Ticket</h2>
+          <p className="ticketStatus__text">
+            No se pudo verificar el ticket, no existe en nuestra Base de Datos
+          </p>
+          <p className="ticketStatus__text">
+            Si crees que es un error, contacta a soporte.
+          </p>
+        </div>
       </div>
     );
   }
 
   const status = ticket.status; // active | used | cancelled
+  const ev = ticket.event;      // 👈 viene del backend
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Estado de tu Entrada</h2>
+    <div className="ticketStatus">
+      <div className="ticketStatus__container">
+        <div className="ticketStatus__head">
+          <h2 className="ticketStatus__title">Estado de tu Entrada</h2>
+          <div className="ticketStatus__subtitle">
+            Verificación automática · NORTH EVENTS
+          </div>
+        </div>
 
-      <div
-        style={{
-          marginTop: 12,
-          padding: 16,
-          borderRadius: 10,
-          border: "1px solid #ddd",
-          background:
+        {/* ✅ BLOQUE EXTRA: INFO DEL EVENTO */}
+        {ev && (
+          <div className="ticketStatus__event">
+            <div className="ticketStatus__eventTitle">{ev.title}</div>
+            <div className="ticketStatus__eventMeta">
+              <span>📍 {ev.venue}</span>
+              <span>
+                📅{" "}
+                {ev.starts_at
+                  ? new Date(ev.starts_at).toLocaleString("es-EC", {
+                      timeZone: "America/Guayaquil",
+                    })
+                  : "—"}
+              </span>
+            </div>
+          </div>
+        )}
+
+        <div
+          className={[
+            "ticketStatus__card",
             status === "active"
-              ? "#e9ffe9"
+              ? "ticketStatus__card--ok"
               : status === "used"
-              ? "#fff3cd"
-              : "#ffd9d9",
-        }}
-      >
-        {status === "active" && (
-          <>
-            <h3>✅ Entrada válida</h3>
-            <p>Presenta este QR en el ingreso.</p>
-          </>
-        )}
-
-        {status === "used" && (
-          <>
-            <h3>⚠️ Entrada ya utilizada</h3>
-            {ticket.used_at && (
-              <p>
-                <b>Usada:</b>{" "}
-                {new Date(ticket.used_at).toLocaleString("es-EC", {
-                  timeZone: "America/Guayaquil",
-                })}
+              ? "ticketStatus__card--warn"
+              : "ticketStatus__card--bad",
+          ].join(" ")}
+        >
+          {status === "active" && (
+            <>
+              <div className="ticketStatus__icon ticketStatus__icon--ok">✓</div>
+              <h3 className="ticketStatus__statusTitle">Entrada válida</h3>
+              <p className="ticketStatus__statusText">
+                Presenta este QR en el ingreso.
               </p>
-            )}
-            {ticket.gate && (
-              <p>
-                <b>Puerta:</b> {ticket.gate}
+            </>
+          )}
+
+          {status === "used" && (
+            <>
+              <div className="ticketStatus__icon ticketStatus__icon--warn">!</div>
+              <h3 className="ticketStatus__statusTitle">Entrada ya utilizada</h3>
+
+              {ticket.used_at && (
+                <p className="ticketStatus__statusText">
+                  <b>Usada:</b>{" "}
+                  {new Date(ticket.used_at).toLocaleString("es-EC", {
+                    timeZone: "America/Guayaquil",
+                  })}
+                </p>
+              )}
+
+              {ticket.gate && (
+                <p className="ticketStatus__statusText">
+                  <b>Puerta:</b> {ticket.gate}
+                </p>
+              )}
+            </>
+          )}
+
+          {status === "cancelled" && (
+            <>
+              <div className="ticketStatus__icon ticketStatus__icon--bad">✕</div>
+              <h3 className="ticketStatus__statusTitle">Entrada cancelada</h3>
+              <p className="ticketStatus__statusText">
+                Contacta a soporte si necesitas ayuda.
               </p>
-            )}
-          </>
-        )}
+            </>
+          )}
 
-        {status === "cancelled" && (
-          <>
-            <h3>❌ Entrada cancelada</h3>
-            <p>Contacta a soporte si necesitas ayuda.</p>
-          </>
-        )}
+          <div className="ticketStatus__code">
+            <div className="ticketStatus__codeLabel">Código</div>
+            <div className="ticketStatus__codeValue">{code}</div>
+          </div>
 
-        <p style={{ marginTop: 10, fontSize: 13, opacity: 0.8 }}>
-          Código: {code}
-        </p>
+          <div className="ticketStatus__note">
+            Si estás en el ingreso, muestra esta pantalla al staff.
+          </div>
+        </div>
       </div>
     </div>
   );
