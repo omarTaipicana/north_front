@@ -1,172 +1,281 @@
 
-/* =========================
-   HERO
-========================= */
 
 .home__hero {
   position: relative;
-  min-height: 420px; /* ✅ más banner como PDF (antes 520) */
+  min-height: 700px;
   overflow: hidden;
+  margin: 0;     /* ✅ evita espacios raros */
+  padding: 0;    /* ✅ evita espacios raros */
 }
 
+/* Fondo con overlay (más fuerte a la izquierda, más suave a la derecha para que se vea la N) */
 .home__heroBg {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(90deg, rgba(14, 4, 42, 0.70), rgba(14, 4, 42, 0.65)),
+    linear-gradient(90deg, rgba(14, 4, 42, 0.70), rgba(14, 4, 42, 0.25)),
     url("/fondo.png");
   background-size: cover;
   background-position: center;
   transform: scale(1.02);
+  z-index: 0;
 }
 
+/* ✅ N decorativa (más visible) */
+.home__heroDeco {
+  position: absolute;
+  right: -50px;
+  bottom: -30px;
+  width: 650px;
+  height: auto;
+
+  opacity: 0.26; /* antes muy baja */
+  filter: brightness(1.25) contrast(1.15);
+  mix-blend-mode: screen; /* ✅ la hace “brillar” sobre fondo oscuro */
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Contenido */
 .home__heroInner {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 55px 22px 34px 22px; /* ✅ ajustado */
+  padding: 66px 22px 28px 22px; /* bottom pequeño para evitar hueco */
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
+  z-index: 2;
 }
 
+/* Tarjeta */
 .home__eventCard {
-  width: min(520px, 100%);
-  background: rgba(255, 255, 255, 0.80);
+  width: min(600px, 100%);
+  background: rgba(255, 255, 255, 0.514); /* ✅ más como mockup */
   color: #1b1230;
-  border-radius: 14px;
-  padding: 18px 18px 16px 18px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.30);
-  backdrop-filter: blur(6px);
+  border-radius: 18px;
+
+  padding: 26px 26px 22px 50px;
+  margin-left: 20px;
+  margin-top: 180px;
+
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+
 }
 
+
+/* artistas */
 .home__eventArtists {
-  font-weight: 700;
-  font-size: 14px;
-  opacity: 0.85;
+  font-weight: 800;
+  font-size: 18px;
+  opacity: 0.9;
 }
 
+/* título grande como el mockup */
 .home__eventTitle {
-  margin-top: 10px;
-  font-size: 60px;
-  line-height: 1.02;
-  font-weight: 900;
+  margin-top: 16px;
+  font-size: 70px;
+  line-height: 0.95;
+  font-weight: 950;
   letter-spacing: 0.5px;
   color: #241445;
   text-transform: uppercase;
 }
 
+/* meta */
 .home__eventMeta {
-  margin-top: 14px;
-  font-size: 13px;
-  opacity: 0.85;
+  margin-top: 18px;
+  font-size: 20px;
+  opacity: 0.9;
+
+  /* 🔥 línea rosada */
+  border-left: 4px solid #ff4df0;
+  padding-left: 18px;
+
+  /* para que quede igual al mockup */
+  color: #241445;
 }
 
+
 .home__eventDate {
-  font-weight: 800;
+  font-weight: 900;
+  color: #241445;
 }
 
 .home__eventPlace {
-  margin-top: 3px;
+  margin-top: 8px;
+  font-weight: 500;
+  color: rgba(36, 20, 69, 0.85);
 }
 
+
+/* botón */
 .home__cta {
-  margin-top: 14px;
-  width: 220px;
-  height: 46px;
+  margin-top: 22px;
+  width: 280px;
+  height: 60px;
   border: none;
-  border-radius: 10px;
+  border-radius: 14px;
   background: #190836;
   color: #fff;
-  font-weight: 800;
+  font-weight: 950;
+  font-size: 20px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
+
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
 }
 
 .buyArrow {
-  color: #ff4df0;   /* morado NORTH */
-  font-size: 18px;
-  margin-left: 6px;
+  color: #ff4df0;
+  font-size: 20px;
+  margin-left: 2px;
   font-weight: 900;
   transition: 0.15s ease;
 }
 
-.eventDetail__buyBtn:hover .buyArrow {
-  transform: translateX(3px);
-}
-
-
 .home__cta:hover {
   filter: brightness(1.06);
 }
+.home__cta:hover .buyArrow {
+  transform: translateX(3px);
+}
 
+/* dots */
 .home__dots {
   display: flex;
-  gap: 8px;
-  margin-left: 10px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 8px;
+  padding-bottom: 0; /* ✅ evita hueco */
 }
 
 .home__dotItem {
-  width: 8px;
-  height: 8px;
+  width: 15px;
+  height: 15px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.40);
+  cursor: pointer;
 }
 
 .home__dotItem--active {
   background: #ff4df0;
 }
 
-
+/* ✅ evita “espacio blanco” por line-height/inline images */
+.home__hero img {
+  display: block;
+}
 
 /* =========================
    RESPONSIVE
 ========================= */
 
 @media (max-width: 900px) {
-  .home__nav {
-    gap: 18px;
-    flex-wrap: wrap;
-    justify-content: center;
+  .home {
+    padding-top: 132px;
+  }
+
+  .home__hero {
+    min-height: 470px;
+  }
+
+  .home__heroInner {
+    padding: 56px 16px 24px 16px;
+  }
+
+  .home__eventCard {
+    width: min(640px, 100%);
+    padding: 20px 20px 18px 20px;
+    border-radius: 16px;
+  }
+
+  .home__eventArtists {
+    font-size: 16px;
   }
 
   .home__eventTitle {
-    font-size: 40px;
+    font-size: 64px;
+    line-height: 0.98;
   }
 
-  .home__footerInner {
-    grid-template-columns: 1fr;
+  .home__eventMeta {
+    font-size: 16px;
   }
 
-  .home__footerDeco {
-    font-size: 200px;
+  .home__cta {
+    width: 250px;
+    height: 54px;
+    font-size: 18px;
+  }
+
+  .home__heroDeco {
+    right: -110px;
+    bottom: 10px;
+    width: 430px;
+    opacity: 0.20;
+    mix-blend-mode: screen;
   }
 }
 
 @media (max-width: 520px) {
-  .home__topbarLeft {
-    display: none;
+  .home {
+    padding-top: 126px;
   }
 
-  .home__navInner {
-    height: auto;
-    padding: 14px 16px;
-    gap: 12px;
-    grid-template-columns: 1fr;
+  .home__hero {
+    min-height: 440px;
   }
 
-  .home__nav {
-    justify-content: flex-start;
+  .home__heroInner {
+    padding: 46px 14px 22px 14px;
+  }
+
+  .home__eventCard {
+    width: 100%;
+    padding: 16px 16px 14px 16px;
+    border-radius: 14px;
+  }
+
+  .home__eventArtists {
+    font-size: 14px;
   }
 
   .home__eventTitle {
-    font-size: 34px;
+    font-size: 44px;
+    line-height: 1;
   }
 
-  .home__topbarRightBox {
-    width: 190px;
+  .home__eventMeta {
+    font-size: 14px;
+  }
+
+  .home__cta {
+    width: 210px;
+    height: 46px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  .home__dots {
+    gap: 8px;
+  }
+
+  .home__dotItem {
+    width: 9px;
+    height: 9px;
+  }
+
+  .home__heroDeco {
+    right: -160px;
+    bottom: -6px;
+    width: 360px;
+    opacity: 0.18;
   }
 }

@@ -26,7 +26,7 @@ const EventDetail = () => {
   useEffect(() => {
     getEvent();
   }, [eventId]);
-   const id = event?.id || eventId;
+  const id = event?.id || eventId;
   // const coverSrc = useMemo(() => {
   //   const id = event?.id || eventId;
   //   return `/${id}.png`;
@@ -52,13 +52,13 @@ const EventDetail = () => {
     <div className="eventDetail">
       <div className="eventDetail__wrap">
         {/* Título */}
-        <h1 className="eventDetail__title">{event.title}</h1>
+        <h1 className="eventDetail__title">{event.title} </h1>
 
         {/* Imagen */}
         <div className="eventDetail__hero">
           <img
             className="eventDetail__img"
-            src= { `/${id}.png`}
+            src={`/${id}.png`}
             alt={event.title}
             onError={(e) => {
               // fallback si no existe la imagen
@@ -71,8 +71,10 @@ const EventDetail = () => {
         <div className="eventDetail__bottom">
           {/* Left card */}
           <div className="eventDetail__leftCard">
-            <div className="eventDetail__date">{dateText}</div>
-            <div className="eventDetail__place">{placeText}</div>
+            <div className="eventDetail__metaBlock">
+              <div className="eventDetail__date">{dateText}</div>
+              <div className="eventDetail__place">{placeText}</div>
+            </div>
 
             <button
               className="eventDetail__buyBtn"

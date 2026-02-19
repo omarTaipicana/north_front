@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import useOrders from "../hooks/useOrders";
 import "./styles/Checkout.css";
 
@@ -8,14 +10,47 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [createOrder, isLoading] = useOrders();
 
+  const urlBase = import.meta.env.VITE_API_URL;
+
+  const [eventPrice, setEventPrice] = useState(0);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // ✅ traer precio del evento
+  useEffect(() => {
+    let mounted = true;
+
+    const loadEvent = async () => {
+      try {
+        const res = await axios.get(`${urlBase}/events/${eventId}`);
+        const price = Number(res?.data?.price || 0);
+        if (mounted) setEventPrice(price);
+      } catch (e) {
+        // si falla, se queda 0 y no rompe nada
+        if (mounted) setEventPrice(0);
+      }
+    };
+
+    if (eventId) loadEvent();
+
+    return () => {
+      mounted = false;
+    };
+  }, [eventId, urlBase]);
+
   const onSubmit = async (data) => {
     try {
+      // ✅ calcular total y guardar para prellenar en UploadPayment
+      const qty = Number(data.quantity || 1);
+      const unitPrice = Number(eventPrice || 0);
+      const total = (qty * unitPrice).toFixed(2);
+
+      localStorage.setItem("north_prefill_amount", total);
+
       const order = await createOrder({
         ...data,
         eventId,
@@ -87,15 +122,21 @@ const Checkout = () => {
           {/* Cantidad */}
           <div className="checkout__field">
             <label className="checkout__label">Cantidad de entradas</label>
-            <input
-              type="number"
-              min="1"
-              defaultValue={1}
+
+            <select
               className={`checkout__input checkout__input--qty ${
                 errors.quantity ? "checkout__input--error" : ""
               }`}
+              defaultValue={1}
               {...register("quantity", { required: true })}
-            />
+            >
+              {Array.from({ length: 30 }, (_, i) => i + 1).map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
+              ))}
+            </select>
+
             {errors.quantity && (
               <p className="checkout__error">Cantidad requerida</p>
             )}

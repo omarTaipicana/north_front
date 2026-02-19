@@ -9,7 +9,7 @@ const Footer = () => {
 
         {/* Columna 1 */}
         <div className="footer__col">
-          <img src="/logo.png" alt="North Events" className="footer__logo" />
+          <img src="/logo_2.png" alt="North Events" className="footer__logo" />
 
           <h3 className="footer__title">
             Suscríbete para noticias <br /> de nuevos eventos
@@ -41,7 +41,7 @@ const Footer = () => {
         {/* Columna 3 */}
         <div className="footer__col">
           <h3 className="footer__heading">¡Escríbenos!</h3>
-          <div className="footer__phone">+593 000 000 000</div>
+          <div className="footer__phone">+593 99-780-8994</div>
 
           <h3 className="footer__heading footer__socialTitle">
             ¡Síguenos!
@@ -67,7 +67,9 @@ const Footer = () => {
         Copyright 2026 North Events
       </div>
 
-      <div className="footer__bgDeco">N</div>
+
+       <img src="/logo_3.png" alt="North Events" className="footer__bgDeco" />
+
     </footer>
   );
 };

@@ -22,8 +22,22 @@ const UploadPayment = () => {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      amount: "",
+    },
+  });
+
+  useEffect(() => {
+    const prefill = localStorage.getItem("north_prefill_amount");
+    if (prefill) {
+      setValue("amount", prefill); // ✅ prellena monto
+    }
+  }, [setValue]);
+
+
 
   const file = watch("proof")?.[0];
 
@@ -68,6 +82,8 @@ const UploadPayment = () => {
       formData.append("file", data.proof[0]); // 👈 importante
 
       await createPayment(formData);
+      localStorage.removeItem("north_prefill_amount");
+
 
       // ✅ modal success
       setModal({
@@ -149,13 +165,13 @@ const UploadPayment = () => {
             <label className="uploadPay__label">Monto depositado</label>
             <input
               type="number"
+              step="0.01"
               placeholder="Monto depositado"
-              className={`uploadPay__input ${
-                errors.amount ? "uploadPay__input--error" : ""
-              }`}
+              className={`uploadPay__input ${errors.amount ? "uploadPay__input--error" : ""}`}
               {...register("amount", { required: true })}
               disabled={isLoading}
             />
+
             {errors.amount && (
               <p className="uploadPay__error">Monto requerido</p>
             )}
@@ -166,9 +182,8 @@ const UploadPayment = () => {
             <label className="uploadPay__label">Comprobante</label>
 
             <label
-              className={`uploadPay__drop ${
-                errors.proof ? "uploadPay__drop--error" : ""
-              }`}
+              className={`uploadPay__drop ${errors.proof ? "uploadPay__drop--error" : ""
+                }`}
             >
               <div className="uploadPay__dropTitle">
                 {file
@@ -221,11 +236,10 @@ const UploadPayment = () => {
         >
           <div className="uploadPayModal__card">
             <div
-              className={`uploadPayModal__icon ${
-                modal.status === "success"
-                  ? "uploadPayModal__icon--success"
-                  : "uploadPayModal__icon--error"
-              }`}
+              className={`uploadPayModal__icon ${modal.status === "success"
+                ? "uploadPayModal__icon--success"
+                : "uploadPayModal__icon--error"
+                }`}
             >
               {modal.status === "success" ? "✓" : "!"}
             </div>

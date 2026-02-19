@@ -59,7 +59,7 @@ const StaffScanner = () => {
         await scannerRef.current.stop();
       }
       await scannerRef.current?.clear();
-    } catch {}
+    } catch { }
     scannerRef.current = null;
   };
   useEffect(() => {
@@ -107,7 +107,7 @@ const StaffScanner = () => {
 
             setCode(onlyCode);
           },
-          () => {},
+          () => { },
         );
       } catch (e) {
         console.error(e);
@@ -142,7 +142,7 @@ const StaffScanner = () => {
     }
     try {
       await doCheckin({ code: finalCode, gate });
-    } catch {}
+    } catch { }
   };
 
   const handleClear = async () => {
@@ -170,58 +170,191 @@ const StaffScanner = () => {
   const renderStatus = () => {
     if (!result) return null;
 
-    if (result.ok) {
-      return (
-        <div className="scanStatus scanStatus--ok">
-          <div className="scanStatus__title">✅ INGRESO REGISTRADO</div>
-          <div className="scanStatus__row">
-            <span className="scanStatus__label">Mensaje</span>
-            <span className="scanStatus__value">{result.data.message}</span>
-          </div>
-        </div>
-      );
-    }
+    const d = result.data || {};
+    const buyer = d.buyer || {};
+    const event = d.event || {};
+    const order = d.order || {};
+    const staff = d.staff || {};
+    const usedByStaff = d.used_by_staff || {};
+
+    // ✅ esta entrada siempre vale por 1 (aunque la orden tenga X)
+    const totalInOrder = Number(order.quantity ?? order.total_tickets ?? order.cantidad ?? 0);
+    const ticketOneOf = totalInOrder > 1 ? `1 de ${totalInOrder}` : null;
+
+
+
+    const fmtDateTime = (iso) => {
+      if (!iso) return "—";
+      try {
+        return new Date(iso).toLocaleString("es-EC", {
+          timeZone: "America/Guayaquil",
+        });
+      } catch {
+        return String(iso);
+      }
+    };
+
+    const fmtDate = (iso) => {
+      if (!iso) return "—";
+      try {
+        return new Date(iso).toLocaleDateString("es-EC", {
+          year: "numeric",
+          month: "long",
+          day: "2-digit",
+          timeZone: "America/Guayaquil",
+        });
+      } catch {
+        return String(iso);
+      }
+    };
 
     return (
-      <div className="scanStatus scanStatus--bad">
-        <div className="scanStatus__title">❌ NO PERMITIDO</div>
-
-        <div className="scanStatus__row">
-          <span className="scanStatus__label">Mensaje</span>
-          <span className="scanStatus__value">
-            {result.data?.message || "Error"}
-          </span>
+      <div className={`scanStatus ${result.ok ? "scanStatus--ok" : "scanStatus--bad"}`}>
+        <div className="scanStatus__title">
+          {result.ok ? "✅ INGRESO REGISTRADO" : "❌ NO PERMITIDO"}
         </div>
 
-        {result.data?.used_at && (
-          <div className="scanStatus__row">
-            <span className="scanStatus__label">Usado</span>
-            <span className="scanStatus__value">
-              {new Date(result.data.used_at).toLocaleString("es-EC", {
-                timeZone: "America/Guayaquil",
-              })}
-            </span>
-          </div>
+        {/* Mensaje */}
+        <div className="scanStatus__row">
+          <span className="scanStatus__label">Mensaje</span>
+          <span className="scanStatus__value">{d.message || "—"}</span>
+        </div>
+
+        {/* ===== Comprador ===== */}
+        {(buyer.name || buyer.email || buyer.phone) && (
+          <>
+            <div className="scanStatus__divider" />
+            <div className="scanStatus__section">Comprador</div>
+
+            {buyer.name && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Nombre</span>
+                <span className="scanStatus__value">{buyer.name}</span>
+              </div>
+            )}
+
+            {buyer.email && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Email</span>
+                <span className="scanStatus__value">{buyer.email}</span>
+              </div>
+            )}
+
+            {buyer.phone && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Teléfono</span>
+                <span className="scanStatus__value">{buyer.phone}</span>
+              </div>
+            )}
+          </>
         )}
 
-        {result.data?.gate && (
-          <div className="scanStatus__row">
-            <span className="scanStatus__label">Puerta</span>
-            <span className="scanStatus__value">{result.data.gate}</span>
-          </div>
+        {/* ===== Evento ===== */}
+        {(event.title || event.venue || event.city || event.starts_at) && (
+          <>
+            <div className="scanStatus__divider" />
+            <div className="scanStatus__section">Evento</div>
+
+            {event.title && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Título</span>
+                <span className="scanStatus__value">{event.title}</span>
+              </div>
+            )}
+
+            {(event.city || event.venue) && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Lugar</span>
+                <span className="scanStatus__value">
+                  {(event.city || "—")}
+                  {event.venue ? ` / ${event.venue}` : ""}
+                </span>
+              </div>
+            )}
+
+            {event.starts_at && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Fecha</span>
+                <span className="scanStatus__value">{fmtDate(event.starts_at)}</span>
+              </div>
+            )}
+          </>
         )}
 
-        {result.data?.staff?.full_name && (
-          <div className="scanStatus__row">
-            <span className="scanStatus__label">Registrado por</span>
-            <span className="scanStatus__value">
-              {result.data.staff.full_name} ({result.data.staff.role})
-            </span>
-          </div>
+        {/* ===== Orden ===== */}
+        {(order.quantity != null || order.total != null) && (
+          <>
+            <div className="scanStatus__divider" />
+            <div className="scanStatus__section">Orden</div>
+
+            {ticketOneOf && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Entrada</span>
+                <span className="scanStatus__value">{ticketOneOf}</span>
+              </div>
+            )}
+
+            {totalInOrder > 0 && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Tickets comprados</span>
+                <span className="scanStatus__value">{totalInOrder}</span>
+              </div>
+            )}
+
+
+            {order.total != null && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Total</span>
+                <span className="scanStatus__value">${order.total}</span>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ===== Registro (usado/puerta/staff) ===== */}
+        {(d.used_at || d.gate || staff.full_name) && (
+          <>
+            <div className="scanStatus__divider" />
+            <div className="scanStatus__section">Registro</div>
+
+            {usedByStaff.full_name && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Registrado por (antes)</span>
+                <span className="scanStatus__value">
+                  {usedByStaff.full_name}{usedByStaff.role ? ` (${usedByStaff.role})` : ""}
+                </span>
+              </div>
+            )}
+
+
+            {d.used_at && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Usado</span>
+                <span className="scanStatus__value">{fmtDateTime(d.used_at)}</span>
+              </div>
+            )}
+
+            {d.gate && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Puerta</span>
+                <span className="scanStatus__value">{d.gate}</span>
+              </div>
+            )}
+
+            {staff.full_name && (
+              <div className="scanStatus__row">
+                <span className="scanStatus__label">Registrado por</span>
+                <span className="scanStatus__value">
+                  {staff.full_name}{staff.role ? ` (${staff.role})` : ""}
+                </span>
+              </div>
+            )}
+          </>
         )}
       </div>
     );
   };
+
 
   return (
     <div className="staffScan">
@@ -238,6 +371,17 @@ const StaffScanner = () => {
           Limpiar
         </button>
       </div>
+
+      {cameraOn && (
+        <div className="staffScan__camera staffScan__camera--top">
+          <div className="staffScan__cameraFrame">
+            <div id="qr-reader" className="staffScan__qr" />
+          </div>
+          <div className="staffScan__tip">
+            Tip: en iPhone/Android suele requerir HTTPS (o localhost).
+          </div>
+        </div>
+      )}
 
       <div className="staffScan__panel">
         <div className="staffScan__grid">
@@ -277,6 +421,7 @@ const StaffScanner = () => {
               type="button"
               className={`staffScan__btn staffScan__btn--ghost ${cameraOn ? "isOn" : ""}`}
               onClick={() => {
+                setResult(null);
                 // nueva sesión de scan (invalida callbacks viejos)
                 scanNonceRef.current++;
                 setCameraOn((v) => !v);
@@ -297,16 +442,7 @@ const StaffScanner = () => {
           </div>
         </div>
 
-        {cameraOn && (
-          <div className="staffScan__camera">
-            <div className="staffScan__cameraFrame">
-              <div id="qr-reader" className="staffScan__qr" />
-            </div>
-            <div className="staffScan__tip">
-              Tip: en iPhone/Android suele requerir HTTPS (o localhost).
-            </div>
-          </div>
-        )}
+
       </div>
 
       {renderStatus()}

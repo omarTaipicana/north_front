@@ -14,7 +14,7 @@ const Home = () => {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    getHomeEvents(3).catch(() => {});
+    getHomeEvents(3).catch(() => { });
   }, []);
 
   // cuando cambia la lista, resetea active si se sale de rango
@@ -50,12 +50,12 @@ const Home = () => {
   return (
     <div className="home">
 
-    
+
 
       {/* Hero */}
       <section className="home__hero">
         <div className="home__heroBg" />
-
+        <img src="/logo_3.png" alt="" className="home__heroDeco" />
         <div className="home__heroInner">
           <div className="home__eventCard">
             {isLoadingHomeEvents ? (
@@ -75,7 +75,7 @@ const Home = () => {
                 <div className="home__eventMeta">
                   <div className="home__eventDate">{formatDate(current.starts_at)}</div>
                   <div className="home__eventPlace">
-                    {(current.city || "—")}{current.venue ? ` / ${current.venue}` : ""}
+                    {current.venue ? `${current.venue}` : ""}
                   </div>
                 </div>
 
@@ -104,7 +104,7 @@ const Home = () => {
         </div>
       </section>
 
-     
+
     </div>
   );
 };

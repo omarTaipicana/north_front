@@ -105,7 +105,7 @@
 .staffScan__btn--primary {
   background: #ff4df0;
   border-color: rgba(255,77,240,0.55);
-  color: #140032;
+  color: #100928;
 }
 
 .staffScan__btn--primary:hover {
@@ -251,18 +251,199 @@
   justify-content: flex-end;
 }
 
-/* desktop tweaks */
+.scanStatus__divider{
+  height: 1px;
+  background: rgba(255,255,255,0.14);
+  margin: 10px 0;
+}
+
+.scanStatus__section{
+  font-weight: 950;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+/* ===== Mejor separación visual (sin cambiar layout) ===== */
+.scanStatus {
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.07);
+}
+
+.scanStatus__divider{
+  height: 1px;
+  background: rgba(255,255,255,0.22);
+  margin: 12px 0;
+}
+
+.scanStatus__section{
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+
+  font-weight: 950;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: rgba(255,255,255,0.95);
+
+  margin: 2px 0 8px 0;
+}
+
+.scanStatus__row{
+  padding: 10px 0;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.scanStatus__label{
+  opacity: 0.82;
+}
+
+.scanStatus__value{
+  opacity: 0.98;
+  max-width: 62%;
+  word-break: break-word;
+}
+
+
+
+/* título principal */
+.scanStatus__title{
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+}
+
+/* separador general */
+.scanStatus__divider{
+  height: 1px;
+  background: rgba(255,255,255,0.26);
+  margin: 14px 0;
+}
+
+/* sección tipo “barra” (más visible que chip) */
+.scanStatus__section{
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+
+  font-weight: 950;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.98);
+
+  margin: 0 0 10px 0;
+}
+
+/* filas con más contraste + guía visual */
+.scanStatus__row{
+  padding: 10px 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+/* primera fila después de cada sección: sin línea arriba */
+.scanStatus__section + .scanStatus__row{
+  border-top: none;
+  padding-top: 2px;
+}
+
+/* label más claro */
+.scanStatus__label{
+  opacity: 0.86;
+}
+
+/* value más estable visualmente */
+.scanStatus__value{
+  opacity: 0.98;
+  max-width: 64%;
+  word-break: break-word;
+}
+
+/* cuando es OK/ERROR que también afecte al header de sección */
+.scanStatus--ok .scanStatus__section{
+  border-color: rgba(90, 255, 180, 0.22);
+  background: rgba(90, 255, 180, 0.08);
+}
+
+.scanStatus--bad .scanStatus__section{
+  border-color: rgba(255, 90, 90, 0.22);
+  background: rgba(255, 90, 90, 0.08);
+}
+
+
+/* =========================
+   DESKTOP: que NO se vea ancho (card centrada)
+   ========================= */
 @media (min-width: 860px) {
-  .staffScan {
-    padding: 18px 20px 30px;
+
+  /* “pagina” centrada tipo app */
+  .staffScan{
+    max-width: 920px;           /* 👈 baja el ancho (prueba 860–980) */
+    margin: 0 auto;
+    padding: 26px 18px 34px;
   }
 
-  .staffScan__grid {
-    grid-template-columns: 1.4fr 0.6fr 1fr;
+  /* panel y status como cards con sombra */
+  .staffScan__panel,
+  .scanStatus{
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.065);
+    box-shadow: 0 26px 80px rgba(0,0,0,0.42);
+  }
+
+  /* grid: que no se estire; mantiene tu layout pero más compacto */
+  .staffScan__grid{
+    padding: 18px;
+    gap: 14px;
+    grid-template-columns: 1.35fr 0.65fr 1fr; /* parecido, pero más balance */
     align-items: end;
   }
 
-  .staffScan__actions {
+  /* acciones: botones más “controlados” */
+  .staffScan__actions{
     grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    justify-content: end;
   }
+
+  /* inputs: un pelín más premium */
+  .staffScan__input,
+  .staffScan__select{
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(255,255,255,0.20);
+  }
+
+  /* cámara: que no quede enorme aunque el contenedor sea card */
+  .staffScan__cameraFrame{
+    width: min(520px, 100%);
+  }
+
+  /* status: más padding en desktop */
+  .scanStatus{
+    padding: 18px;
+  }
+
+  /* valores: que no se vean “apretados” */
+  .scanStatus__value{
+    max-width: 58%;
+  }
+}
+
+/* =========================
+   ULTRA-WIDE: si alguien abre en monitor gigante, aún más control
+   ========================= */
+@media (min-width: 1200px){
+  .staffScan{ max-width: 880px; }
 }

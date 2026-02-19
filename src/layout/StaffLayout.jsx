@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import StaffHeader from "../componentes/staff/StaffHeader";
+import StaffHeader from "../components/staff/StaffHeader";
 import "./StaffLayout.css";
 
 const StaffLayout = () => {

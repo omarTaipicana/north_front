@@ -11,7 +11,7 @@ import StaffValidator from "./pages/StaffValidator";
 import StaffAdmin from "./pages/StaffAdmin";
 import EventDetail from "./pages/EventDetail";
 import MainLayout from "./layout/MainLayout";
-import ProtectedRoute from "./componentes/auth/ProtectedRoute";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import StaffLayout from "./layout/StaffLayout";
 import StaffUnauthorized from "./pages/StaffUnauthorized";
 import Contact from "./pages/Contact";
