@@ -14,11 +14,14 @@ const TicketStatus = () => {
     const staff = localStorage.getItem("staff");
 
     if (token && staff) {
-      navigate(`/staff/scanner?code=${encodeURIComponent(code)}`, { replace: true });
+      navigate(`/staff/scanner?code=${encodeURIComponent(code)}`, {
+        replace: true,
+      });
       return;
     }
 
     getStatus(code).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code]);
 
   if (isLoading) return <div className="ticketStatus__state">Cargando...</div>;
@@ -39,8 +42,23 @@ const TicketStatus = () => {
     );
   }
 
-  const status = ticket.status; // active | used | cancelled
-  const ev = ticket.event;      // 👈 viene del backend
+  // ✅ si el backend devolviera redirect (por token staff), lo manejamos por si acaso
+  if (ticket.redirect) {
+    navigate(ticket.redirect, { replace: true });
+    return null;
+  }
+
+  // ✅ AHORA viene así por tu endpoint:
+  // ticket.status (string)
+  // ticket.ticket.used_at, ticket.ticket.gate
+  // ticket.event (obj)
+  const status = ticket.status; // "unused" | "used" | "void"  (según tu DB)
+  const t = ticket.ticket || {}; // { used_at, gate, code, ... }
+  const ev = ticket.event || null;
+
+  // ✅ mapeo a lo que tu UI esperaba (active/used/cancelled)
+  const uiStatus =
+    status === "used" ? "used" : status === "void" ? "cancelled" : "active";
 
   return (
     <div className="ticketStatus">
@@ -52,7 +70,7 @@ const TicketStatus = () => {
           </div>
         </div>
 
-        {/* ✅ BLOQUE EXTRA: INFO DEL EVENTO */}
+        {/* ✅ INFO DEL EVENTO (ahora viene en ticket.event) */}
         {ev && (
           <div className="ticketStatus__event">
             <div className="ticketStatus__eventTitle">{ev.title}</div>
@@ -73,14 +91,14 @@ const TicketStatus = () => {
         <div
           className={[
             "ticketStatus__card",
-            status === "active"
+            uiStatus === "active"
               ? "ticketStatus__card--ok"
-              : status === "used"
+              : uiStatus === "used"
               ? "ticketStatus__card--warn"
               : "ticketStatus__card--bad",
           ].join(" ")}
         >
-          {status === "active" && (
+          {uiStatus === "active" && (
             <>
               <div className="ticketStatus__icon ticketStatus__icon--ok">✓</div>
               <h3 className="ticketStatus__statusTitle">Entrada válida</h3>
@@ -90,32 +108,32 @@ const TicketStatus = () => {
             </>
           )}
 
-          {status === "used" && (
+          {uiStatus === "used" && (
             <>
               <div className="ticketStatus__icon ticketStatus__icon--warn">!</div>
               <h3 className="ticketStatus__statusTitle">Entrada ya utilizada</h3>
 
-              {ticket.used_at && (
+              {t.used_at && (
                 <p className="ticketStatus__statusText">
                   <b>Usada:</b>{" "}
-                  {new Date(ticket.used_at).toLocaleString("es-EC", {
+                  {new Date(t.used_at).toLocaleString("es-EC", {
                     timeZone: "America/Guayaquil",
                   })}
                 </p>
               )}
 
-              {ticket.gate && (
+              {t.gate && (
                 <p className="ticketStatus__statusText">
-                  <b>Puerta:</b> {ticket.gate}
+                  <b>Puerta:</b> {t.gate}
                 </p>
               )}
             </>
           )}
 
-          {status === "cancelled" && (
+          {uiStatus === "cancelled" && (
             <>
               <div className="ticketStatus__icon ticketStatus__icon--bad">✕</div>
-              <h3 className="ticketStatus__statusTitle">Entrada cancelada</h3>
+              <h3 className="ticketStatus__statusTitle">Entrada anulada</h3>
               <p className="ticketStatus__statusText">
                 Contacta a soporte si necesitas ayuda.
               </p>
