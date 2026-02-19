@@ -177,6 +177,16 @@
   color: rgba(200, 255, 230, 0.95);
 }
 
+.staffVal__phone{
+  color: rgba(255,255,255,0.92);
+  font-weight: 900;
+  text-decoration: none;
+}
+.staffVal__phone:hover{
+  text-decoration: underline;
+}
+
+
 /* links */
 .staffVal__link {
   color: #ff4df0;

@@ -162,6 +162,8 @@ const StaffValidator = () => {
           <thead>
             <tr>
               <th>Order</th>
+              <th>Comprador</th>
+              <th>Celular</th>
               <th>Monto</th>
               <th>Estado</th>
               <th>Comprobante</th>
@@ -169,101 +171,133 @@ const StaffValidator = () => {
             </tr>
           </thead>
 
+
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={5} className="staffVal__empty">
+                <td colSpan={7} className="staffVal__empty">
                   Cargando...
                 </td>
               </tr>
             ) : rows.length === 0 ? (
               <tr>
-                <td colSpan={5} className="staffVal__empty">
+                <td colSpan={7} className="staffVal__empty">
                   {showTrash
                     ? "No hay pagos en papelera."
                     : "No hay pagos activos."}
                 </td>
               </tr>
             ) : (
-              rows.map((p) => (
-                <tr key={p.id} className={p.is_validated ? "isValidated" : ""}>
-                  <td className="staffVal__mono">{p.orderId}</td>
 
-                  <td>
-                    <b>${p.amount}</b>{" "}
-                    <span className="staffVal__mutedInline">
-                      {p.currency || "USD"}
-                    </span>
-                  </td>
+              rows.map((p) => {
+                const ord = p.order || p.Order || p.orden || p.Orden || null;
 
-                  <td>
-                    <span
-                      className={`staffVal__pill ${
-                        p.is_validated ? "pillOk" : "pillPending"
-                      }`}
-                    >
-                      {p.is_validated ? "VALIDADO" : "PENDIENTE"}
-                    </span>
-                  </td>
+                return (
+                  <tr key={p.id} className={p.is_validated ? "isValidated" : ""}>
+                    <td className="staffVal__mono">{p.orderId}</td>
 
-                  <td>
-                    {p.proof_url ? (
-                      <a
-                        className="staffVal__link"
-                        href={p.proof_url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Ver
-                      </a>
-                    ) : (
-                      <span className="staffVal__mutedInline">—</span>
-                    )}
-                  </td>
-
-                  <td>
-                    <div className="staffVal__actions">
-                      {!showTrash && !p.is_validated && (
-                        <button
-                          className="staffVal__btn staffVal__btn--primary"
-                          type="button"
-                          onClick={() => openModal(p)}
-                        >
-                          Validar
-                        </button>
+                    <td>
+                      <b>{ord?.buyer_name || ord?.buyerName || "—"}</b>
+                      {ord?.buyer_email && (
+                        <div className="staffVal__mutedInline">{ord.buyer_email}</div>
                       )}
+                    </td>
 
-                      {!showTrash && p.is_validated && (
-                        <button
-                          className="staffVal__btn"
-                          type="button"
-                          onClick={() => openModal(p)}
-                        >
-                          Ver / Editar
-                        </button>
-                      )}
 
-                      {!showTrash ? (
-                        <button
-                          className="staffVal__btn staffVal__btn--danger"
-                          type="button"
-                          onClick={() => askTrash(p.id)}
-                        >
-                          🗑 Eliminar
-                        </button>
+                    <td>
+                      {p?.order?.buyer_phone ? (
+                        <a className="staffVal__phone" href={`tel:${p.order.buyer_phone}`}>
+                          {p.order.buyer_phone}
+                        </a>
                       ) : (
-                        <button
-                          className="staffVal__btn staffVal__btn--success"
-                          type="button"
-                          onClick={() => askRestore(p.id)}
-                        >
-                          ♻ Restaurar
-                        </button>
+                        <span className="staffVal__mutedInline">—</span>
                       )}
-                    </div>
-                  </td>
-                </tr>
-              ))
+                    </td>
+
+                    <td>
+                      <b>${p.amount}</b>{" "}
+                      <span className="staffVal__mutedInline">
+                        {p.currency || "USD"}
+                      </span>
+                    </td>
+
+                    <td>
+                      <span
+                        className={`staffVal__pill ${p.is_validated ? "pillOk" : "pillPending"
+                          }`}
+                      >
+                        {p.is_validated ? "VALIDADO" : "PENDIENTE"}
+                      </span>
+                    </td>
+
+                    <td>
+                      {p.proof_url ? (
+                        <a
+                          className="staffVal__link"
+                          href={p.proof_url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Ver
+                        </a>
+                      ) : (
+                        <span className="staffVal__mutedInline">—</span>
+                      )}
+                    </td>
+
+                    <td>
+                      <div className="staffVal__actions">
+                        {!showTrash && !p.is_validated && (
+                          <button
+                            className="staffVal__btn staffVal__btn--primary"
+                            type="button"
+                            onClick={() => openModal(p)}
+                          >
+                            Validar
+                          </button>
+                        )}
+
+                        {!showTrash && p.is_validated && (
+                          <button
+                            className="staffVal__btn"
+                            type="button"
+                            onClick={() => openModal(p)}
+                          >
+                            Ver / Editar
+                          </button>
+                        )}
+
+                        {!showTrash ? (
+                          <button
+                            className="staffVal__btn staffVal__btn--danger"
+                            type="button"
+                            onClick={() => askTrash(p.id)}
+                          >
+                            🗑 Eliminar
+                          </button>
+                        ) : (
+                          <button
+                            className="staffVal__btn staffVal__btn--success"
+                            type="button"
+                            onClick={() => askRestore(p.id)}
+                          >
+                            ♻ Restaurar
+                          </button>
+                        )}
+                      </div>
+                    </td>
+
+                  </tr>
+                );
+              })
+
+
+
+
+
+
+
+
             )}
           </tbody>
         </table>
