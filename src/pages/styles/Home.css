@@ -176,65 +176,63 @@
 /* =========================
    RESPONSIVE
 ========================= */
+/* =========================
+   MOBILE FIX (sin tocar desktop)
+========================= */
 
+/* 900px hacia abajo: card centrada, sin margin-top gigante */
 @media (max-width: 900px) {
-  .home {
-    padding-top: 132px;
-  }
+
 
   .home__hero {
-    min-height: 470px;
+    min-height: 520px; /* más estable */
   }
 
   .home__heroInner {
-    padding: 56px 16px 24px 16px;
+    align-items: center; /* ✅ centra la tarjeta */
   }
 
   .home__eventCard {
-    width: min(640px, 100%);
-    padding: 20px 20px 18px 20px;
-    border-radius: 16px;
-  }
-
-  .home__eventArtists {
-    font-size: 16px;
+    margin-left: 0;       /* ✅ */
+    margin-top: 0;        /* ✅ quita el empuje gigante */
+    width: min(560px, 100%);
   }
 
   .home__eventTitle {
-    font-size: 64px;
-    line-height: 0.98;
+    font-size: 52px; /* ✅ baja el tamaño */
+    line-height: 1;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 
   .home__eventMeta {
-    font-size: 16px;
+    font-size: 15px;
+    padding-left: 14px;
   }
 
   .home__cta {
-    width: 250px;
-    height: 54px;
+    width: 240px;
+    height: 52px;
     font-size: 18px;
   }
 
   .home__heroDeco {
-    right: -110px;
-    bottom: 10px;
-    width: 430px;
-    opacity: 0.20;
-    mix-blend-mode: screen;
+    right: -140px;
+    bottom: 0px;
+    width: 420px;
+    opacity: 0.18;
   }
 }
 
+/* 520px hacia abajo: más compacto y sin cortes */
 @media (max-width: 520px) {
-  .home {
-    padding-top: 126px;
-  }
 
   .home__hero {
-    min-height: 440px;
+    min-height: 520px; /* evita que quede apretado */
   }
 
   .home__heroInner {
-    padding: 46px 14px 22px 14px;
+    align-items: center;
   }
 
   .home__eventCard {
@@ -244,38 +242,44 @@
   }
 
   .home__eventArtists {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .home__eventTitle {
-    font-size: 44px;
-    line-height: 1;
+    margin-top: 12px;
+    font-size: 38px;   /* ✅ clave para que no se desborde */
+    line-height: 1.05;
+    letter-spacing: 0.2px;
   }
 
   .home__eventMeta {
+    margin-top: 14px;
     font-size: 14px;
+    padding-left: 12px;
+    border-left-width: 3px;
   }
 
   .home__cta {
-    width: 210px;
+    width: 100%;
     height: 46px;
     font-size: 16px;
     border-radius: 12px;
   }
 
   .home__dots {
+    margin-top: 10px;
     gap: 8px;
   }
 
   .home__dotItem {
-    width: 9px;
-    height: 9px;
+    width: 10px;
+    height: 10px;
   }
 
   .home__heroDeco {
-    right: -160px;
-    bottom: -6px;
-    width: 360px;
-    opacity: 0.18;
+    right: -50px;
+    bottom: -10px;
+    width: 340px;
+    opacity: 0.16;
   }
 }
