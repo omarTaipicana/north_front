@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import usePaymentsAdmin from "../hooks/usePaymentsAdmin";
 import "./styles/StaffValidator.css";
+import axios from "axios";
 import useCrud from "../hooks/useCrud";
 
 const StaffValidator = () => {
@@ -117,12 +118,67 @@ const StaffValidator = () => {
     });
   };
 
+
+
+  // ✅ Buscador
+  const [q, setQ] = useState("");
+
+  // ✅ filas base (SIEMPRE antes del filtro)
+  const rows_payments = useMemo(() => payments || [], [payments]);
+
+  // ✅ filas filtradas
+  const rowsFiltered = useMemo(() => {
+    const s = q.trim().toLowerCase();
+    if (!s) return rows_payments;
+
+    return rows_payments.filter((p) => {
+      const email = String(p?.order?.buyer_email || "").toLowerCase();
+      const name = String(p?.order?.buyer_name || "").toLowerCase();
+      const orderId = String(p?.orderId || "").toLowerCase();
+      return email.includes(s) || name.includes(s) || orderId.includes(s);
+    });
+  }, [rows_payments, q]);
+
+
+
   const errorMsg =
     error?.response?.data?.message ||
     error?.message ||
     (error ? String(error) : null);
 
   const rows = useMemo(() => payments || [], [payments]);
+
+
+
+
+  const downloadTicketsPdf = async (orderId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const urlBase = import.meta.env.VITE_API_URL;
+
+      const res = await axios.get(`${urlBase}/orders/${orderId}/tickets.pdf`, {
+        responseType: "blob",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const url = window.URL.createObjectURL(
+        new Blob([res.data], { type: "application/pdf" })
+      );
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `tickets_${orderId}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      showSuccess("Descarga lista", "Se descargó el PDF de tickets.");
+    } catch (e) {
+      showError("Error", e?.message || "No se pudo descargar el PDF");
+    }
+  };
+
+
+
 
   return (
     <div className="staffVal">
@@ -157,6 +213,18 @@ const StaffValidator = () => {
 
       {errorMsg && <div className="staffVal__errorBox">Error: {errorMsg}</div>}
 
+      <div className="staffVal__search">
+        <input
+          className="staffVal__searchInput"
+          placeholder="Buscar por correo / nombre / orderId"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+        />
+      </div>
+
+{console.log(rowsFiltered)}
+
+
       <div className="staffVal__tableWrap">
         <table className="staffVal__table">
           <thead>
@@ -189,7 +257,7 @@ const StaffValidator = () => {
               </tr>
             ) : (
 
-              rows.map((p) => {
+              rowsFiltered.map((p) => {
                 const ord = p.order || p.Order || p.orden || p.Orden || null;
 
                 return (
@@ -284,6 +352,21 @@ const StaffValidator = () => {
                             ♻ Restaurar
                           </button>
                         )}
+
+                        {p.is_validated &&
+                          <button
+                            className="staffVal__btn staffVal__btn--success"
+                            type="button"
+                            onClick={() => downloadTicketsPdf(p.orderId)}
+                          >
+                            ⬇ Descargar
+                          </button>
+
+
+                        }
+
+
+
                       </div>
                     </td>
 

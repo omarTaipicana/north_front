@@ -1,5 +1,5 @@
 .staffLogin {
-  min-height: calc(100vh - 130px); /* header principal fixed */
+  min-height: calc(100vh - 200px); /* header principal fixed */
   background: #0b0320;
   color: #fff;
 

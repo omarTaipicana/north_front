@@ -76,13 +76,13 @@ const Header = () => {
               Inicio
             </NavLink>
 
-            <NavLink to="/events" className="header__link">
+            <NavLink to="/event/072bc678-2eb1-4a0d-8e0f-e8f1dff219d0" className="header__link">
               Conciertos y Eventos
             </NavLink>
 
-            {/* <NavLink to="/partners" className="header__link">
+            <NavLink to="/partners" className="header__link">
               Partners
-            </NavLink> */}
+            </NavLink>
 
             <NavLink to="/contact" className="header__link">
               Contactos
@@ -96,10 +96,13 @@ const Header = () => {
             aria-label="Abrir menú"
             onClick={() => setOpen((v) => !v)}
           >
-            <span />
-            <span />
-            <span />
+            <span className="header__burgerIcon" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
           </button>
+
         </div>
       </div>
 
@@ -120,7 +123,8 @@ const Header = () => {
             aria-label="Cerrar"
             onClick={() => setOpen(false)}
           >
-            ✕
+            <span className="header__x" aria-hidden="true" />
+
           </button>
         </div>
 
@@ -133,9 +137,9 @@ const Header = () => {
             Conciertos y Eventos
           </NavLink>
 
-          {/* <NavLink to="/partners" className="header__drawerLink">
+          <NavLink to="/partners" className="header__drawerLink">
             Partners
-          </NavLink> */}
+          </NavLink>
 
           <NavLink to="/contact" className="header__drawerLink">
             Contactos

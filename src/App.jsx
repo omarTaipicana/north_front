@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import StaffLayout from "./layout/StaffLayout";
 import StaffUnauthorized from "./pages/StaffUnauthorized";
 import Contact from "./pages/Contact";
+import Partners from "./pages/Partners";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
         <Route path="/ticket/:code" element={<TicketStatus />} />
         <Route path="/staff/login" element={<StaffLogin />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/partners" element={<Partners />} />
+
 
 
         {/* Staff */}

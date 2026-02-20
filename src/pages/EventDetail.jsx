@@ -58,7 +58,7 @@ const EventDetail = () => {
         <div className="eventDetail__hero">
           <img
             className="eventDetail__img"
-            src={`/${id}.png`}
+            src={`/events/${id}.png`}
             alt={event.title}
             onError={(e) => {
               // fallback si no existe la imagen

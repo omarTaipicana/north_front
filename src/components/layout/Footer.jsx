@@ -41,7 +41,14 @@ const Footer = () => {
         {/* Columna 3 */}
         <div className="footer__col">
           <h3 className="footer__heading">¡Escríbenos!</h3>
-          <div className="footer__phone">+593 99-780-8994</div>
+          <a
+            href="https://wa.me/593997808994"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__phone"
+          >
+            +593 99-780-8994
+          </a>
 
           <h3 className="footer__heading footer__socialTitle">
             ¡Síguenos!
@@ -68,7 +75,7 @@ const Footer = () => {
       </div>
 
 
-       <img src="/logo_3.png" alt="North Events" className="footer__bgDeco" />
+      <img src="/logo_3.png" alt="North Events" className="footer__bgDeco" />
 
     </footer>
   );

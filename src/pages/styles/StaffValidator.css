@@ -1,5 +1,5 @@
 .staffVal {
-  padding: 18px 20px 30px;
+  padding: 30px 20px 30px;
   color: #fff;
 }
 
@@ -405,6 +405,20 @@
   color: #fff;
   cursor: pointer;
 }
+
+.staffVal__search { margin-top: 14px; display:flex; gap:10px; }
+.staffVal__searchInput{
+  width:min(520px, 100%);
+  height:44px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  padding:0 14px;
+  outline:none;
+}
+.staffVal__searchInput::placeholder{ color: rgba(255,255,255,0.55); }
+
 
 /* mobile */
 @media (max-width: 520px) {
