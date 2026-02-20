@@ -222,9 +222,6 @@ const StaffValidator = () => {
         />
       </div>
 
-{console.log(rowsFiltered)}
-
-
       <div className="staffVal__tableWrap">
         <table className="staffVal__table">
           <thead>
