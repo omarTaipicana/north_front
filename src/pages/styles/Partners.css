@@ -2,35 +2,35 @@
    PARTNERS - North (solo logos grandes)
 ========================= */
 
-.partnersPage{
+.partnersPage {
   min-height: 100vh;
   background: #ffffff;
-  padding: 22px 0 70px;
+  padding: 5px 0 70px;
   display: flex;
   justify-content: center;
 }
 
-.partnersWrap{
+.partnersWrap {
   width: 70%;
 }
 
 /* ===== HERO ===== */
-.partnersHero{
+.partnersHero {
   border-radius: 16px;
   background: #ffffff;
   padding: 18px 18px 16px;
 }
 
-.partnersTitle{
-  margin: 16px 0 30px;
-  font-size: 44px;
-  font-weight: 950;
-  color:#0b0320;
+.partnersTitle {
+  margin: 0 0 3px;
+  font-size: 35px;
+  font-weight: 800;
+  color: #0b0320;
   letter-spacing: -0.2px;
   text-align: center;
 }
 
-.partnersSub{
+.partnersSub {
   margin: 0;
   font-size: 17px;
   font-weight: 800;
@@ -42,54 +42,67 @@
 /* =========================
    MARQUEE SOLO LOGOS (GRANDES)
 ========================= */
-.logoMarquee{
+.logoMarquee {
   margin-top: 18px;
   overflow: hidden;
   position: relative;
-  height: 270px; /* ✅ grande */
+  height: 270px;
+  /* ✅ grande */
 }
 
 /* fade a los lados (para que se vea “entra/sale”) */
 .logoMarquee::before,
-.logoMarquee::after{
-  content:"";
-  position:absolute;
-  top:0; bottom:0;
+.logoMarquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
   width: 140px;
   z-index: 2;
-  pointer-events:none;
-}
-.logoMarquee::before{
-  left:0;
-  background: linear-gradient(90deg, #ffffff 0%, rgba(255,255,255,0) 100%);
-}
-.logoMarquee::after{
-  right:0;
-  background: linear-gradient(270deg, #ffffff 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
 }
 
-.logoMarquee__track{
+.logoMarquee::before {
+  left: 0;
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.logoMarquee::after {
+  right: 0;
+  background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.logoMarquee__track {
   height: 100%;
   display: flex;
   align-items: center;
-  gap: 70px; /* ✅ separación para logos grandes */
+  gap: 70px;
+  /* ✅ separación para logos grandes */
   width: max-content;
   padding: 0 40px;
   animation: logoScroll 16s linear infinite;
 }
 
-.logoMarquee:hover .logoMarquee__track{
+.logoMarquee:hover .logoMarquee__track {
   animation-play-state: paused;
 }
 
-@keyframes logoScroll{
-  from { transform: translateX(0); }
-  to   { transform: translateX(-33.333%); } /* porque duplicamos 3 veces */
+@keyframes logoScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-33.333%);
+  }
+
+  /* porque duplicamos 3 veces */
 }
 
 /* cada item NO tiene fondo, NO borde */
-.logoMarquee__item{
-  height: 350px;            /* ✅ grande */
+.logoMarquee__item {
+  height: 350px;
+  /* ✅ grande */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,11 +110,14 @@
 }
 
 /* imagen completa SIEMPRE */
-.logoMarquee__img{
-  height: 220px;            /* ✅ grande */
+.logoMarquee__img {
+  height: 220px;
+  /* ✅ grande */
   width: auto;
-  max-width: 360px;         /* ✅ evita que se “desborde” demasiado */
-  object-fit: contain;      /* ✅ completa */
+  max-width: 360px;
+  /* ✅ evita que se “desborde” demasiado */
+  object-fit: contain;
+  /* ✅ completa */
   display: block;
 
   /* si algunas PNG vienen “apagadas”, esto las realza en fondo blanco */
@@ -109,42 +125,45 @@
 }
 
 
-.logoMarquee{
+.logoMarquee {
   cursor: grab;
 }
 
-.logoMarquee:active{
+.logoMarquee:active {
   cursor: grabbing;
 }
 
-.logoMarquee__track{
+.logoMarquee__track {
   will-change: transform;
   user-select: none;
-  touch-action: pan-y; /* permite scroll vertical normal, pero arrastre horizontal aquí */
+  touch-action: pan-y;
+  /* permite scroll vertical normal, pero arrastre horizontal aquí */
 }
 
-.logoMarquee__img{
-  pointer-events: none; /* para que al arrastrar no seleccione la imagen */
+.logoMarquee__img {
+  pointer-events: none;
+  /* para que al arrastrar no seleccione la imagen */
 }
 
 /* cuando arrastras, quitamos transición rara */
-.logoMarquee__track.isDragging{
-  animation: none !important; /* pausa completa */
+.logoMarquee__track.isDragging {
+  animation: none !important;
+  /* pausa completa */
 }
 
 
 /* Nota */
-.partnersHero__note{
+.partnersHero__note {
   margin-top: 10px;
   font-size: 12px;
   font-weight: 900;
-  color: rgba(0,0,0,0.50);
+  color: rgba(0, 0, 0, 0.50);
 }
 
 /* =========================
    ABAJO (más compacto)
 ========================= */
-.sponsorCompact{
+.sponsorCompact {
   margin-top: 16px;
   display: grid;
   grid-template-columns: 1fr 1.25fr;
@@ -153,15 +172,15 @@
 }
 
 /* mini CTA */
-.sponsorMiniCTA{
+.sponsorMiniCTA {
   border-radius: 14px;
   border: 1px solid rgba(202, 77, 255, 0.25);
   background: #ffffff;
-  box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.08);
   padding: 14px;
 }
 
-.sponsorMiniCTA__badge{
+.sponsorMiniCTA__badge {
   display: inline-flex;
   align-items: center;
   height: 26px;
@@ -170,27 +189,27 @@
   font-weight: 950;
   font-size: 11px;
   letter-spacing: 0.7px;
-  background: rgba(255,77,240,0.10);
-  border: 1px solid rgba(255,77,240,0.22);
+  background: rgba(255, 77, 240, 0.10);
+  border: 1px solid rgba(255, 77, 240, 0.22);
   color: #500576;
 }
 
-.sponsorMiniCTA__title{
+.sponsorMiniCTA__title {
   margin: 10px 0 6px;
   font-size: 18px;
   font-weight: 950;
   color: #0b0b0b;
 }
 
-.sponsorMiniCTA__text{
+.sponsorMiniCTA__text {
   margin: 0;
   font-size: 13px;
   font-weight: 800;
-  color: rgba(0,0,0,0.65);
+  color: rgba(0, 0, 0, 0.65);
   line-height: 1.55;
 }
 
-.sponsorMiniCTA__whats{
+.sponsorMiniCTA__whats {
   margin-top: 12px;
   height: 46px;
   padding: 0 14px;
@@ -206,78 +225,81 @@
   gap: 10px;
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 12px 26px rgba(0,0,0,0.16);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
   width: 100%;
   max-width: 280px;
 }
-.sponsorMiniCTA__whats:hover{ filter: brightness(1.06); }
 
-.sponsorMiniCTA__hint{
+.sponsorMiniCTA__whats:hover {
+  filter: brightness(1.06);
+}
+
+.sponsorMiniCTA__hint {
   margin-top: 8px;
   font-size: 12px;
   font-weight: 900;
-  color: rgba(0,0,0,0.55);
+  color: rgba(0, 0, 0, 0.55);
 }
 
 /* mini form */
-.sponsorMiniFormCard{
+.sponsorMiniFormCard {
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid rgba(202, 77, 255, 0.55);
   background: #ffffff;
-  box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.08);
 }
 
-.sponsorMiniFormHead{
+.sponsorMiniFormHead {
   background: #07030f;
   color: #ff4df0;
   padding: 12px 12px;
 }
 
-.sponsorMiniFormTitle{
+.sponsorMiniFormTitle {
   font-size: 14px;
   font-weight: 950;
 }
 
-.sponsorMiniFormSub{
+.sponsorMiniFormSub {
   margin-top: 4px;
   font-size: 12px;
   font-weight: 800;
   opacity: 0.85;
-  color: rgba(255,255,255,0.82);
+  color: rgba(255, 255, 255, 0.82);
 }
 
-.sponsorMiniForm{
+.sponsorMiniForm {
   padding: 12px;
   display: grid;
   gap: 10px;
 }
 
-.miniGrid{
+.miniGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-.miniInput{
+.miniInput {
   width: 100%;
   height: 42px;
   border-radius: 12px;
   border: 1px solid rgba(202, 77, 255, 0.30);
   background: #ffffff;
-  color: rgba(0,0,0,0.78);
+  color: rgba(0, 0, 0, 0.78);
   padding: 0 12px;
   outline: none;
   font-weight: 800;
   font-size: 13px;
 }
 
-.miniTextarea{
+.miniTextarea {
   width: 100%;
   border-radius: 12px;
   border: 1px solid rgba(202, 77, 255, 0.30);
   background: #ffffff;
-  color: rgba(0,0,0,0.78);
+  color: rgba(0, 0, 0, 0.78);
   padding: 10px 12px;
   outline: none;
   font-weight: 800;
@@ -287,18 +309,18 @@
 }
 
 .miniInput:focus,
-.miniTextarea:focus{
-  border-color: rgba(255,77,240,0.55);
+.miniTextarea:focus {
+  border-color: rgba(255, 77, 240, 0.55);
 }
 
-.miniRow{
+.miniRow {
   display: grid;
   grid-template-columns: 1fr 140px;
   gap: 10px;
   align-items: stretch;
 }
 
-.miniBtn{
+.miniBtn {
   height: 110px;
   border-radius: 12px;
   border: none;
@@ -311,63 +333,66 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  box-shadow: 0 12px 26px rgba(0,0,0,0.16);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
 }
-.miniBtn:hover{ filter: brightness(1.06); }
 
-.miniBtn:disabled{
+.miniBtn:hover {
+  filter: brightness(1.06);
+}
+
+.miniBtn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
-.isError{
+.isError {
   border-color: rgba(255, 90, 90, 0.75) !important;
 }
 
-.miniMeta{
+.miniMeta {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   align-items: center;
 }
 
-.miniError{
+.miniError {
   font-size: 12px;
   font-weight: 900;
   color: rgba(255, 90, 90, 0.95);
 }
 
-.miniHint{
+.miniHint {
   margin-left: auto;
   font-size: 12px;
   font-weight: 900;
-  color: rgba(0,0,0,0.55);
+  color: rgba(0, 0, 0, 0.55);
 }
 
 /* ===== Modal ===== */
-.partnersModal__backdrop{
+.partnersModal__backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
   display: grid;
   place-items: center;
   padding: 16px;
   z-index: 6000;
 }
 
-.partnersModal__card{
+.partnersModal__card {
   width: min(520px, 100%);
   border-radius: 18px;
   padding: 16px;
-  border: 1px solid rgba(255,255,255,0.14);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(20, 0, 50, 0.92);
   backdrop-filter: blur(10px);
-  box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
   text-align: center;
   color: #fff;
 }
 
-.partnersModal__icon{
+.partnersModal__icon {
   width: 46px;
   height: 46px;
   border-radius: 999px;
@@ -377,40 +402,42 @@
   font-weight: 950;
   font-size: 20px;
 }
-.partnersModal__icon--success{
+
+.partnersModal__icon--success {
   background: rgba(90, 255, 180, 0.18);
   border: 1px solid rgba(90, 255, 180, 0.35);
 }
-.partnersModal__icon--error{
+
+.partnersModal__icon--error {
   background: rgba(255, 90, 90, 0.18);
   border: 1px solid rgba(255, 90, 90, 0.35);
 }
 
-.partnersModal__title{
+.partnersModal__title {
   margin: 0;
   font-size: 18px;
   font-weight: 950;
 }
 
-.partnersModal__text{
+.partnersModal__text {
   margin: 10px 0 0;
   font-size: 13px;
   opacity: 0.85;
   line-height: 1.6;
 }
 
-.partnersModal__actions{
+.partnersModal__actions {
   margin-top: 14px;
   display: flex;
   justify-content: center;
 }
 
-.partnersModal__btn{
+.partnersModal__btn {
   height: 44px;
   padding: 0 16px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
   font-weight: 950;
   cursor: pointer;
@@ -420,35 +447,103 @@
    RESPONSIVE
 ========================= */
 
-@media (max-width: 900px){
-  .partnersWrap{ width: 88%; }
-  .partnersTitle{ font-size: 34px; }
+@media (max-width: 900px) {
+  .partnersWrap {
+    width: 88%;
+  }
 
-  .logoMarquee{ height: 150px; }
-  .logoMarquee__item{ height: 130px; }
-  .logoMarquee__img{ height: 130px; max-width: 320px; }
-  .logoMarquee__track{ gap: 56px; }
+  .partnersTitle {
+    font-size: 34px;
+  }
 
-  .sponsorCompact{ grid-template-columns: 1fr; }
-  .miniGrid{ grid-template-columns: 1fr; }
-  .miniRow{ grid-template-columns: 1fr; }
-  .miniBtn{ height: 48px; }
+  .logoMarquee {
+    height: 150px;
+  }
+
+  .logoMarquee__item {
+    height: 130px;
+  }
+
+  .logoMarquee__img {
+    height: 130px;
+    max-width: 320px;
+  }
+
+  .logoMarquee__track {
+    gap: 56px;
+  }
+
+  .sponsorCompact {
+    grid-template-columns: 1fr;
+  }
+
+  .miniGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .miniRow {
+    grid-template-columns: 1fr;
+  }
+
+  .miniBtn {
+    height: 48px;
+  }
 }
 
-@media (max-width: 520px){
-  .partnersPage{ padding: 18px 0 50px; }
-  .partnersWrap{ width: 92%; }
-  .partnersTitle{ font-size: 23px; }
+@media (max-width: 520px) {
 
-  .logoMarquee{ height: 180px; }
-  .logoMarquee__item{ height: 110px; }
-  .logoMarquee__img{ height: 170px; max-width: 260px; }
+  .partnersPage {
+    padding: 0 0 10px;
+  }
+
+  .partnersHero {
+    border-radius: 16px;
+    background: #ffffff;
+    padding: 0 0 0;
+  }
+
+  .partnersPage {
+    padding: 18px 0 50px;
+  }
+
+  .partnersWrap {
+    width: 92%;
+  }
+
+  .partnersTitle {
+    font-size: 20px;
+    margin: 0;
+    width: 100%;
+
+  }
+
+  .partnersSub {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .logoMarquee {
+    height: 180px;
+  }
+
+  .logoMarquee__item {
+    height: 110px;
+  }
+
+  .logoMarquee__img {
+    height: 170px;
+    max-width: 260px;
+  }
 
   .logoMarquee::before,
-  .logoMarquee::after{ width: 80px; }
+  .logoMarquee::after {
+    width: 80px;
+  }
 }
 
 /* Accesibilidad */
-@media (prefers-reduced-motion: reduce){
-  .logoMarquee__track{ animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .logoMarquee__track {
+    animation: none;
+  }
 }
