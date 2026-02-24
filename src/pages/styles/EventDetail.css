@@ -206,10 +206,7 @@
     font-size: 36px;
   }
 
-  .eventDetail__img {
-    height: 360px;
-  }
-
+ 
   .eventDetail__bottom {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -230,10 +227,7 @@
     margin: 10px 0 14px;
   }
 
-  .eventDetail__img {
-    height: 240px;
-  }
-
+ 
   .eventDetail__date {
     font-size: 16px;
   }
