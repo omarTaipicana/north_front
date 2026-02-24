@@ -9,6 +9,13 @@ const PARTNERS = [
     { key: "fogan", img: "/partners/fogan.png" },
     { key: "scratch", img: "/partners/scratch.png" },
     { key: "gkm", img: "/partners/gkm.png" },
+
+    { key: "gkm", img: "/partners/carrizal.png" },
+    { key: "gkm", img: "/partners/syc.png" },
+    { key: "gkm", img: "/partners/tuzy.png" },
+    { key: "gkm", img: "/partners/illegal.png" },
+    { key: "gkm", img: "/partners/huella_juridica.png" }
+
 ];
 
 const WHATSAPP_LINK =
