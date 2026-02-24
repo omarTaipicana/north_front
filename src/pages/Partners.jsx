@@ -230,9 +230,9 @@ const Partners = () => {
       <div className="partnersWrap">
         <section className="partnersHero">
           <h2 className="partnersTitle">Sé parte de nuestros auspiciantes</h2>
-          <div className="eventDetail__hero">
+          <div className="partners__hero">
             <img
-              className="eventDetail__img"
+              className="partners__img"
               src={`/partners/general.png`}
               alt="partners"
             />
