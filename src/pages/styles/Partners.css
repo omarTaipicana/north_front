@@ -494,6 +494,7 @@
   .sponsorCompact {
     grid-template-columns: 1fr;
   }
+  
 
   .miniGrid {
     grid-template-columns: 1fr;
